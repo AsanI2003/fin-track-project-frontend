@@ -1,27 +1,34 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography, Link as MuiLink } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../store/authSlice";
 import { validateLogin } from "../utils/validation/loginValidation";
+import { loginUser } from "../api/authApi";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newErrors = validateLogin(form);
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
-    // Dispatch Redux login
-    dispatch(loginSuccess({ user: { email: form.email }, token: "fakeToken123" }));
-    console.log("Login successful:", form);
+    const data = await loginUser(form);
+
+    if (data.token) {
+      dispatch(loginSuccess({ user: data.user, token: data.token }));
+      navigate("/dashboard");
+    } else {
+      setErrors({ general: data.message || "Login failed" });
+    }
   };
 
   return (
@@ -32,6 +39,8 @@ const Login = () => {
         value={form.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} />
       <TextField label="Password" name="password" type="password" fullWidth margin="normal"
         value={form.password} onChange={handleChange} error={!!errors.password} helperText={errors.password} />
+
+      {errors.general && <Typography color="error">{errors.general}</Typography>}
 
       <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
         Login
