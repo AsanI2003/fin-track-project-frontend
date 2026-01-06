@@ -4,18 +4,19 @@ import Layout from "../layouts/HomeLayout";
 import { Box, CircularProgress } from "@mui/material";
 import PrivateRoute from "../components/PrivateRoute";
 
-// Public pages
+
 const Home = lazy(() => import("../pages/home/Home"));
 const About = lazy(() => import("../pages/home/About"));
 const Contact = lazy(() => import("../pages/home/Contact"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 
-// Dashboard pages
+//dashboard pages
 const DashboardLayout = lazy(() => import("../layouts/DashboardLayout"));
 const Overview = lazy(() => import("../pages/dashboard/Overview"));
 const Manage = lazy(() => import("../pages/dashboard/Manage"));
 const FinTrackAI = lazy(() => import("../pages/dashboard/FinTrackAI"));
+const BillsGallery = lazy(() => import("../pages/dashboard/BillGallery"));
 
 const Index = () => {
   return (
@@ -35,18 +36,18 @@ const Index = () => {
         }
       >
         <Routes>
-          {/* Routes that use HomeLayout */}
+      
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
           </Route>
 
-          {/* Auth routes */}
+         
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Dashboard routes */}
+        
           <Route
             path="/dashboard"
             element={
@@ -56,9 +57,11 @@ const Index = () => {
             }
           >
             <Route index element={<Overview />} />{" "}
-            {/* default dashboard page */}
+         
             <Route path="manage" element={<Manage />} />
             <Route path="ai" element={<FinTrackAI />} />
+            <Route path="bills" element={<BillsGallery />} />
+          
           </Route>
         </Routes>
       </Suspense>

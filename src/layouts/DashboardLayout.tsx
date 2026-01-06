@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -14,18 +14,29 @@ import {
   Container,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/authSlice";
 
 const DashboardLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+
+  const handleLogout = () => {
+    dispatch(logout());               // clear Redux state
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");               
+  };
 
   const navLinks = [
     { label: "Overview", path: "/dashboard" }, // default route
     { label: "Manage", path: "/dashboard/manage" },
     { label: "FinTrack Pro AI", path: "/dashboard/ai" },
-    { label: "Log Out", path: "/" },
-  ];
+    { label: "Bill Gallery", path: "/dashboard/bills" },
+   ];
 
   const drawer = (
     <Box sx={{ width: 250 }} role="presentation" onClick={handleDrawerToggle}>
@@ -35,6 +46,9 @@ const DashboardLayout = () => {
             <ListItemText primary={item.label} />
           </ListItem>
         ))}
+        <ListItem button onClick={handleLogout}>
+          <ListItemText primary="Log Out" />
+        </ListItem>
       </List>
     </Box>
   );
@@ -69,6 +83,9 @@ const DashboardLayout = () => {
                 {item.label}
               </Button>
             ))}
+            <Button color="inherit" onClick={handleLogout}>
+              Log Out
+            </Button>
           </Box>
 
           {/* Mobile Hamburger */}

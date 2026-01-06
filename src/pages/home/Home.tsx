@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <Container sx={{ py: 6 }}>
-      {/* Hero Section */}
       <Box textAlign="center" mb={6}>
         <Typography
           variant="h3"
@@ -36,7 +35,6 @@ const Home = () => {
           Your smart companion for managing expenses.
         </Typography>
 
-        {/* Login / Register Buttons */}
         <Box mt={3}>
           <Button
             component={Link}
@@ -58,7 +56,6 @@ const Home = () => {
         </Box>
       </Box>
 
-      {/* Feature Tiles Section */}
       <Grid container spacing={4} justifyContent="center">
         <Grid item xs={12} sm={6} md={3}>
           <Card elevation={3} sx={{ height: "100%" }}>
@@ -67,7 +64,7 @@ const Home = () => {
                 📊 Track Expenses
               </Typography>
               <Typography color="text.secondary">
-                Record daily expenses to see where your money goes.
+                Record monthly expenses to see where your money goes.
               </Typography>
             </CardContent>
           </Card>

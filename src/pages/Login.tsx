@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Box, TextField, Button, Typography, Link as MuiLink } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Link as MuiLink,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../store/authSlice";
@@ -24,6 +30,8 @@ const Login = () => {
     const data = await loginUser(form);
 
     if (data.token) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       dispatch(loginSuccess({ user: data.user, token: data.token }));
       navigate("/dashboard");
     } else {
@@ -32,22 +40,62 @@ const Login = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto", mt: 6, p: 3, boxShadow: 3, borderRadius: 2 }}>
-      <Typography variant="h5" gutterBottom>Login to FinTrack Pro</Typography>
+    <Box
+      sx={{
+        maxWidth: 400,
+        mx: "auto",
+        mt: 6,
+        p: 3,
+        boxShadow: 3,
+        borderRadius: 2,
+      }}
+    >
+      <Typography variant="h5" gutterBottom>
+        Login to FinTrack Pro
+      </Typography>
 
-      <TextField label="Email" name="email" type="email" fullWidth margin="normal"
-        value={form.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} />
-      <TextField label="Password" name="password" type="password" fullWidth margin="normal"
-        value={form.password} onChange={handleChange} error={!!errors.password} helperText={errors.password} />
+      <TextField
+        label="Email"
+        name="email"
+        type="email"
+        fullWidth
+        margin="normal"
+        value={form.email}
+        onChange={handleChange}
+        error={!!errors.email}
+        helperText={errors.email}
+      />
+      <TextField
+        label="Password"
+        name="password"
+        type="password"
+        fullWidth
+        margin="normal"
+        value={form.password}
+        onChange={handleChange}
+        error={!!errors.password}
+        helperText={errors.password}
+      />
 
-      {errors.general && <Typography color="error">{errors.general}</Typography>}
+      {errors.general && (
+        <Typography color="error">{errors.general}</Typography>
+      )}
 
-      <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        sx={{ mt: 2 }}
+        onClick={handleSubmit}
+      >
         Login
       </Button>
 
       <Typography variant="body2" sx={{ mt: 2, textAlign: "center" }}>
-        New user? <MuiLink component={Link} to="/register" underline="hover">Register now</MuiLink>
+        New user?{" "}
+        <MuiLink component={Link} to="/register" underline="hover">
+          Register now
+        </MuiLink>
       </Typography>
     </Box>
   );

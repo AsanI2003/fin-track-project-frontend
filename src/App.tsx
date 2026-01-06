@@ -2,7 +2,7 @@ import React from "react";
 import Index from "./routes/Index";
 
 const App = () => {
-  return <Index/>;
+  return <Index />;
 };
 
 export default App;

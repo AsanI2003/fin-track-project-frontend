@@ -30,12 +30,10 @@ const Register = () => {
     const data = await registerUser(form);
 
     if (data.message === "User registered successfully") {
-      // Option A: redirect to login
+  
       navigate("/login");
 
-      // Option B: auto-login (if backend returns token)
-      // dispatch(loginSuccess({ user: data.user, token: data.token }));
-      // navigate("/dashboard");
+  
     } else {
       setErrors({ general: data.message || "Registration failed" });
     }
