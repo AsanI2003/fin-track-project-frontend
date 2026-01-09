@@ -7,7 +7,7 @@ type ChatMessage = { role: "user" | "assistant"; content: string };
 const STORAGE_KEY = "fintrackChat";
 
 const FinTrackAI: React.FC = () => {
-  // ✅ Initialize from localStorage synchronously
+  // Initialize from localStorage synchronously
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -20,16 +20,16 @@ const FinTrackAI: React.FC = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🔄 Persist to localStorage whenever messages change
+  // Persist to localStorage whenever messages change
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
     } catch {
-      // swallow storage errors (quota, private mode, etc.)
+      
     }
   }, [messages]);
 
-  // Optional: auto-scroll to latest message
+  
   const chatRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (chatRef.current) {
@@ -77,7 +77,7 @@ const FinTrackAI: React.FC = () => {
           mb: 2,
           minHeight: 300,
           maxHeight: 400,
-          overflowY: "auto", // scrollable when content grows
+          overflowY: "auto", 
         }}
       >
         {messages.length === 0 ? (

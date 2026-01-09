@@ -1,4 +1,4 @@
-// frontend/src/components/ExpenseCard.tsx
+
 import React from "react";
 import { Card, CardContent, Typography, CardActions, Button, Box } from "@mui/material";
 

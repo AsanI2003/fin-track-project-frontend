@@ -1,4 +1,4 @@
-// frontend/src/api/expensesApi.ts
+
 import { api } from "./client";
 
 export const createExpense = async (payload: {

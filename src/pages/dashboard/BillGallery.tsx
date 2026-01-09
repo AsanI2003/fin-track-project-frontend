@@ -1,4 +1,4 @@
-// src/pages/BillGallery.tsx
+
 import React, { useEffect, useState } from "react";
 import { Box, Grid, Paper, Typography, Button, CircularProgress, Alert } from "@mui/material";
 import { getBills, uploadBill, deleteBill } from "../../api/billsApi";

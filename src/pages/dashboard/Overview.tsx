@@ -14,7 +14,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import html2canvas from "html2canvas";
 import { getSummary } from "../../api/expensesApi";
 
-// Register Chart.js components + datalabels plugin
+// Chart.js components + datalabels plugin
 ChartJS.register(
   ArcElement,
   Tooltip,
